@@ -1,0 +1,32 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+#app {
+  width: 100%;
+  height: 100%;
+  >div,main {
+    width: 100%;
+    height: 100%;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+
+.items-start {
+  align-items: flex-start; /*交叉轴起点对齐*/
+}
+
+.items-end {
+  align-items: flex-end; /*交叉轴终点对齐*/
+}
+
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
