@@ -17,7 +17,8 @@ export default defineConfig({
         vueSetupExtend(),
         autoImport({
             imports: ['vue','vue-router','pinia'],
-            dts: './src/types/auto-import.d.ts'
+            dts: './src/types/auto-import.d.ts',
+            dirs: ['./src/utils']
         }),
         UnoCss()
     ],

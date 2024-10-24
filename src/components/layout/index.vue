@@ -33,6 +33,7 @@
                 </el-scrollbar>
             </el-main>
         </el-container>
+        <lt-drawer v-model="appStore.drawer"></lt-drawer>
     </el-container>
 </template>
 
@@ -42,6 +43,7 @@ import { Fold,Expand,Setting } from '@element-plus/icons-vue'
 
 const logo = defineAsyncComponent(() => import('./sideBar/logo.vue'))
 const sideMenu = defineAsyncComponent(() => import('./sideBar/sideMenu.vue'))
+const LtDrawer = defineAsyncComponent(() => import('./drawer/index.vue'))
 
 const appStore = useAppStore()
 const { collapse,menuWidth } = storeToRefs(appStore)
@@ -54,8 +56,7 @@ const setCollapse = () => {
 <style scoped lang="scss">
 .lt-layout-container {
     &:deep(.el-aside) {
-        background: #545c64;
-        transition: width 0.2s;
+        transition: width 0.3s;
         .el-scrollbar {
             &__wrap, &__view {
                 height: 100%;
@@ -68,12 +69,13 @@ const setCollapse = () => {
                 width: v-bind(menuWidth);
             }
         }
-    }
-    &:deep(.el-header) {
-        border-bottom: 1px solid #e4e7ed;
-    }
-    &:deep(.el-main) {
 
+    }
+    &:deep(.lt-custom-drawer) {
+        width: 300px !important;
+        .el-drawer__body {
+            border-top: 1px solid #dedede;
+        }
     }
 }
 </style>

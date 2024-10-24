@@ -5,12 +5,20 @@
 */
 <template>
     <div class="flex-center">
-       <div class="mt-5" style="width: 200px;height: 200px;background: lightgreen"></div>
+
+        <el-button type="primary" @click="test">按钮</el-button>
     </div>
 </template>
 
 <script setup lang="ts">
+import {useAppStore} from "@/stores/app";
 
+const appStore = useAppStore()
+
+const test = () => {
+    // setCssVariable('--theme-bg', 'red')
+    appStore.setDrawer()
+}
 </script>
 
 <style scoped lang="scss">
