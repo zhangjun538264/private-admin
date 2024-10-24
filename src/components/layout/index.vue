@@ -13,19 +13,7 @@
         </el-aside>
         <el-container>
             <el-header class="p-0 flex justify-between">
-                <div class="h-full flex items-center">
-                    <el-icon class="w-60 h-full flex items-center cursor-pointer" size="20" @click="setCollapse">
-                        <Fold v-if="collapse"/>
-                        <Expand v-else/>
-                    </el-icon>
-                    <el-breadcrumb>
-                        <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-                        <el-breadcrumb-item>promotion management</el-breadcrumb-item>
-                        <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-                        <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
-                    </el-breadcrumb>
-                </div>
-                <div class="w-100 h-full"></div>
+                <nav-bar></nav-bar>
             </el-header>
             <el-main class="p-0">
                 <el-scrollbar>
@@ -43,6 +31,7 @@ import { Fold,Expand,Setting } from '@element-plus/icons-vue'
 
 const logo = defineAsyncComponent(() => import('./sideBar/logo.vue'))
 const sideMenu = defineAsyncComponent(() => import('./sideBar/sideMenu.vue'))
+const navBar = defineAsyncComponent(() => import('./navBar/index.vue'))
 const LtDrawer = defineAsyncComponent(() => import('./drawer/index.vue'))
 
 const appStore = useAppStore()

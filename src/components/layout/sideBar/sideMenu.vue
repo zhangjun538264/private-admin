@@ -41,13 +41,6 @@ const menu = [
         ]
     },
 ]
-
-const getBreadcrumb = () => {
-
-    console.log(route);
-}
-
-watch(() => route.path, path => !!path && getBreadcrumb())
 </script>
 
 <style scoped lang='scss'>
