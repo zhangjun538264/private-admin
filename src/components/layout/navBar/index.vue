@@ -19,19 +19,26 @@
 </template>
 
 <script setup lang="ts">
-import {useAppStore} from "@/stores/app";
 import {Expand, Fold} from "@element-plus/icons-vue";
 const appStore = useAppStore()
+import type { RouteLocationMatched } from 'vue-router'
+import {useAppStore} from "@/stores/app";
 const route = useRoute()
 const { collapse } = storeToRefs(useAppStore())
 const setCollapse = () => {
     appStore.setCollapse()
 }
-const breadcrumb = ref([])
+const breadcrumb = ref<Array<RouteLocationMatched>>([])
 
 watch(() => route.path, val => {
     const { matched } = route
-    breadcrumb.value = matched.filter(item => item.path !== '/')
+    const meta = {title: '首页'}
+    const arr:RouteLocationMatched[] = []
+    matched.forEach((item,index) => {
+        const { name } = item
+        index === 0 ? arr.push({...item, meta}) : (name !== 'home' && arr.push(item))
+    })
+    breadcrumb.value = arr
 },{
     immediate: true,
     deep: true
