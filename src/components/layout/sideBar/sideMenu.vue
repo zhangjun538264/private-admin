@@ -17,12 +17,12 @@ const { collapse } = storeToRefs(useAppStore())
 const route = useRoute()
 const menu = [
     {
-        icon: 'lt-icon lt-shouye',
+        icon: 'home',
         title: '首页',
         path: '/home',
     },
     {
-        icon: 'lt-icon lt-shouye',
+        icon: 'home',
         title: '系统管理',
         path: '/system',
         children: [

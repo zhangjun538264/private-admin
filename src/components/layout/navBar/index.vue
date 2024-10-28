@@ -15,21 +15,29 @@
             </transition-group>
         </el-breadcrumb>
     </div>
-    <div class="w-100 h-full"></div>
+    <div class="w-200 h-full flex items-center">
+        <search></search>
+        <screen></screen>
+        <setting></setting>
+    </div>
 </template>
 
 <script setup lang="ts">
-import {Expand, Fold} from "@element-plus/icons-vue";
-const appStore = useAppStore()
+import {Expand, Fold,Search} from "@element-plus/icons-vue";
 import type { RouteLocationMatched } from 'vue-router'
 import {useAppStore} from "@/stores/app";
+const search = defineAsyncComponent(() => import('./search.vue'))
+const screen = defineAsyncComponent(() => import('./screen.vue'))
+const setting = defineAsyncComponent(() => import('./setting.vue'))
+const appStore = useAppStore()
 const route = useRoute()
-const { collapse } = storeToRefs(useAppStore())
+
+const { collapse } = storeToRefs(appStore)
 const setCollapse = () => {
     appStore.setCollapse()
 }
-const breadcrumb = ref<Array<RouteLocationMatched>>([])
 
+const breadcrumb = ref<Array<RouteLocationMatched>>([])
 watch(() => route.path, val => {
     const { matched } = route
     const meta = {title: '首页'}

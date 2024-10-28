@@ -2,12 +2,19 @@ import {fileURLToPath, URL} from 'node:url'
 
 import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
+import {resolve} from 'path'
 import VueDevTools from 'vite-plugin-vue-devtools'
+//
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
 // 自动导入
 import autoImport from 'unplugin-auto-import/dist/vite.js'
 // 定义组件 name
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+// 引入UnoCss
 import UnoCss from 'unocss/vite'
+
+const pathSrc = resolve(__dirname, "src");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,16 +22,23 @@ export default defineConfig({
         vue(),
         VueDevTools(),
         vueSetupExtend(),
+        UnoCss(),
         autoImport({
             imports: ['vue','vue-router','pinia'],
             dts: './src/types/auto-import.d.ts',
             dirs: ['./src/utils']
         }),
-        UnoCss()
+        createSvgIconsPlugin({
+            // 指定需要缓存的图标文件夹
+            iconDirs: [resolve(pathSrc, 'assets/icons')],
+            // 指定symbolId格式
+            symbolId: 'icon-[dir]-[name]',
+        }),
     ],
     resolve: {
         alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url))
+            // '@': fileURLToPath(new URL('./src', import.meta.url))
+            '@': pathSrc
         }
     },
     css: {
