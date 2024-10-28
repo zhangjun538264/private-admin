@@ -15,7 +15,7 @@
     <el-sub-menu v-else :index="menu.path">
         <template #title>
             <el-icon>
-                <svg-icon :name="menu.icon"></svg-icon>
+                <svg-icon :name="menu.icon" size="20"></svg-icon>
             </el-icon>
             <span class="lt-menu-title">{{menu.title}}</span>
         </template>

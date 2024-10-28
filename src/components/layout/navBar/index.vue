@@ -18,6 +18,7 @@
     <div class="w-200 h-full flex items-center">
         <search></search>
         <screen></screen>
+        <avatar></avatar>
         <setting></setting>
     </div>
 </template>
@@ -28,6 +29,7 @@ import type { RouteLocationMatched } from 'vue-router'
 import {useAppStore} from "@/stores/app";
 const search = defineAsyncComponent(() => import('./search.vue'))
 const screen = defineAsyncComponent(() => import('./screen.vue'))
+const avatar = defineAsyncComponent(() => import('./avatar.vue'))
 const setting = defineAsyncComponent(() => import('./setting.vue'))
 const appStore = useAppStore()
 const route = useRoute()
