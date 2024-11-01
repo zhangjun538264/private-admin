@@ -5,21 +5,21 @@
 */
 <template>
     <div class="flex-center">
-        <el-button type="primary" @click="test">按钮</el-button>
-        <svg-icon name="home" color="#dedede"></svg-icon>
+        <el-button type="primary" @click="test">测试</el-button>
     </div>
 </template>
 
 <script setup lang="ts">
 import {useAppStore} from "@/stores/app";
-const svgIcon = defineAsyncComponent(() => import('@/components/svgIcon/index.vue'))
-
 const appStore = useAppStore()
-
+const { historyList } = storeToRefs( useAppStore())
+console.log(historyList)
 const test = () => {
-    // setCssVariable('--theme-bg', 'red')
-    appStore.setDrawer()
+    appStore.setHistoryList(['11111'])
 }
+
+
+
 </script>
 
 <style scoped lang="scss">

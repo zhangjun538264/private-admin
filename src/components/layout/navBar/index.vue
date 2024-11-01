@@ -4,7 +4,7 @@
 * @desc:
 */
 <template>
-    <div class="h-full flex items-center">
+    <div class="lt-navBar-left h-full flex items-center">
         <el-icon class="w-60 h-full flex items-center cursor-pointer" size="20" @click="setCollapse">
             <Fold v-if="collapse"/>
             <Expand v-else/>
@@ -15,7 +15,7 @@
             </transition-group>
         </el-breadcrumb>
     </div>
-    <div class="w-200 h-full flex items-center">
+    <div class="lt-navBar-right h-full flex items-center" style="min-width: 200px">
         <search></search>
         <screen></screen>
         <avatar></avatar>
@@ -58,5 +58,11 @@ watch(() => route.path, val => {
 </script>
 
 <style scoped lang="scss">
-
+.lt-navBar-right {
+    >div {
+        &:hover {
+            background: var(--hover-bg);
+        }
+    }
+}
 </style>

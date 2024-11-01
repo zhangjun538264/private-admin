@@ -8,6 +8,9 @@ export const useAppStore = defineStore('app', () => {
     // 项目配置抽屉
     const drawer = ref(false)
 
+    // 搜索历史
+    const historyList = ref([])
+
     const setCollapse = () => {
         collapse.value = !collapse.value
     }
@@ -15,5 +18,14 @@ export const useAppStore = defineStore('app', () => {
         drawer.value = !drawer.value
     }
 
-    return { collapse,menuWidth,drawer,setCollapse,setDrawer}
+    const setHistoryList = (val: any) => {
+        historyList.value = val
+    }
+
+    return { collapse,menuWidth,drawer,historyList,setCollapse,setDrawer,setHistoryList}
+},{
+    persist: {
+        storage: sessionStorage,
+        pick: ['historyList'],
+    }
 })

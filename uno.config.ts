@@ -28,7 +28,7 @@ export default defineConfig({
         [/^pb-(\d+)$/, match => ({ 'padding-bottom': `${match[1]}px`})],
         [/^pl-(\d+)$/, match => ({ 'padding-left': `${match[1]}px`})],
         [/^pr-(\d+)$/, match => ({ 'padding-right': `${match[1]}px`})],
-
+        // font-size
         [/^fs-(\d+)$/, match => ({ 'font-size': `${match[1]}px`})],
     ],
     shortcuts: {
@@ -39,7 +39,7 @@ export default defineConfig({
         "items-start": "flex-items-start",
         "items-end": "flex-items-end",
         "wh-full": "w-full h-full",
-        // "flex-x-between": "flex items-center justify-between",
+        "text-ellipsis": "overflow-hidden text-ellipsis whitespace-nowrap",
         // "flex-x-end": "flex items-center justify-end",
         // "absolute-lt": "absolute left-0 top-0",
         // "absolute-rt": "absolute right-0 top-0 ",

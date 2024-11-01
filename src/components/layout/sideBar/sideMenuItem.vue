@@ -6,7 +6,7 @@
 <template>
     <el-menu-item v-if="!menu.children" :index="menu.path">
         <el-icon>
-            <svg-icon :name="menu.icon"></svg-icon>
+            <svg-icon :name="menu.icon" size="20"></svg-icon>
         </el-icon>
         <template #title>
             <span class="lt-menu-title">{{menu.title}}</span>
@@ -25,7 +25,8 @@
 
 <script setup lang="ts">
 const sideMenuItem = defineAsyncComponent(() => import('./sideMenuItem.vue'))
-// const svgIcon = defineAsyncComponent(() => import('@/components/svgIcon/index.vue')) // 使用异步引入组件，菜单栏折叠/展开会抖动
+// 使用异步引入组件，菜单栏折叠/展开会抖动
+// const svgIcon = defineAsyncComponent(() => import('@/components/svgIcon/index.vue'))
 const props = defineProps({
     menu: {
         type: Object,

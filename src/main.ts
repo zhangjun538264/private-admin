@@ -3,6 +3,8 @@ import { createPinia } from 'pinia'
 import router from './router'
 import App from './App.vue'
 import ElementPlus from 'element-plus'
+import persistedState from 'pinia-plugin-persistedstate'
+
 
 
 // 样式
@@ -17,7 +19,11 @@ import svgIcon from '@/components/svgIcon/index.vue'
 
 
 const app = createApp(App)
-app.use(createPinia())
+
+const pinia = createPinia()
+pinia.use(persistedState)
+
+app.use(pinia)
 app.use(router)
 app.use(ElementPlus, { zIndex: 3000 })
 app.component('svgIcon', svgIcon)

@@ -36,9 +36,6 @@ const LtDrawer = defineAsyncComponent(() => import('./drawer/index.vue'))
 
 const appStore = useAppStore()
 const { collapse,menuWidth } = storeToRefs(appStore)
-const setCollapse = () => {
-    appStore.setCollapse()
-}
 
 </script>
 

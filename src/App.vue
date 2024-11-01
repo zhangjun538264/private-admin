@@ -1,6 +1,6 @@
 <template>
     <el-config-provider :locale="locale">
-        <el-watermark :width="150" :font="font" :content="['Private Admin',dayjs().format('YYYY-MM-DD')]">
+        <el-watermark :width="150" :zIndex="9999" :font="font" :content="['Private Admin',dayjs().format('YYYY-MM-DD')]">
             <router-view></router-view>
         </el-watermark>
     </el-config-provider>

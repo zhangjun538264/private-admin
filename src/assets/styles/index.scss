@@ -21,18 +21,15 @@ html, body {
 * {
     box-sizing: border-box;
 }
-
-.items-start {
-    align-items: flex-start; /*交叉轴起点对齐*/
+::-webkit-scrollbar {
+    width: 6px; /* 滚动条宽度 */
+    height: 6px;
 }
-
-.items-end {
-    align-items: flex-end; /*交叉轴终点对齐*/
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 4px; /* 滚动条轨道圆角 */
 }
-
-
-.text-ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 4px; /* 滚动条滑块圆角 */
 }

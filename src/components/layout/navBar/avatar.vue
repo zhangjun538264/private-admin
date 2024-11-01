@@ -4,19 +4,15 @@
 * @desc:
 */
 <template>
-    <el-dropdown>
-        <span class="el-dropdown-link">
-<!--            <el-icon class="el-icon&#45;&#45;right">-->
-<!--                <svg-icon name="home"></svg-icon>-->
-<!--            </el-icon>-->
-        </span>
+    <el-dropdown trigger="click" class="lt-avatar h-full pl-10 pr-10">
+        <div class="flex items-center">
+            <img src="../../../assets/img/avatar.awebp" alt="">
+            <span class="pl-8">admin</span>
+        </div>
         <template #dropdown>
             <el-dropdown-menu>
-                <el-dropdown-item>Action 1</el-dropdown-item>
-                <el-dropdown-item>Action 2</el-dropdown-item>
-                <el-dropdown-item>Action 3</el-dropdown-item>
-                <el-dropdown-item disabled>Action 4</el-dropdown-item>
-                <el-dropdown-item divided>Action 5</el-dropdown-item>
+                <el-dropdown-item>个人中心</el-dropdown-item>
+                <el-dropdown-item>退出登录</el-dropdown-item>
             </el-dropdown-menu>
         </template>
     </el-dropdown>
@@ -24,9 +20,15 @@
 
 <script setup lang="ts">
 
-import SvgIcon from "@/components/svgIcon/index.vue";
 </script>
 
 <style scoped lang="scss">
+.lt-avatar {
+
+    img {
+        width: 24px;
+        height: 24px;
+    }
+}
 
 </style>
