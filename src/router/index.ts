@@ -1,7 +1,8 @@
 import {createRouter, createWebHistory, type RouteRecordRaw,} from 'vue-router'
 import type {routeItem, searchMenu} from '@/types/app'
 import _ from 'lodash'
-import {useMenuStore} from "@/stores/menu";
+import { useAppStore } from '@/stores/app'
+import { useMenuStore } from "@/stores/menu";
 
 // ../views/*.vue: 匹配所有以 /views 开始 .vue 文件 (不含子文件夹)
 // ../views/*/*.vue: 匹配所有以 /views 开始 .vue 文件 (一级子文件夹),
@@ -43,10 +44,12 @@ const router = createRouter({
 
 //添加动态路由
 router.beforeEach((to, from, next) => {
-    const menuStore = useMenuStore()
+    const appStore = useAppStore(),
+        menuStore = useMenuStore()
     const { isLoadRouter,menuList } = storeToRefs(menuStore)
     if (!isLoadRouter.value) {
         const routes = dynamicRoute(menuList.value,[])
+        appStore.setSearchMenuList(searchMenuList)
         routes.forEach((item: RouteRecordRaw) => router.addRoute('layout',item))
         menuStore.setIsLoadRouter(true)
         // 解决页面刷新时，动态路由丢失的问题

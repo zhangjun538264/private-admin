@@ -17,6 +17,7 @@
             </el-header>
             <el-main class="p-0">
                 <el-scrollbar>
+
                     <router-view></router-view>
                 </el-scrollbar>
             </el-main>

@@ -8,28 +8,52 @@
         <svg-icon name="search"></svg-icon>
     </div>
 
-    <el-dialog v-model="dialog" width="600" :show-close="false" append-to-body class="lt-menu-search">
-        <el-input v-model="keyword" placeholder="请输入关键字" size="large">
+    <el-dialog v-model="dialog" width="600" :show-close="false" append-to-body @close="closeDialog" class="lt-menu-search">
+        <el-input
+            v-model="keyword"
+            placeholder="请输入菜单名称关键字搜索"
+            size="large"
+            clearable
+            @input="getMenuList"
+            @keyup.enter="selectedMenuItem"
+            @keydown.up.prevent="changeMenuIndex('up')"
+            @keydown.down.prevent="changeMenuIndex('down')"
+            @keydown.esc="closeDialog">
             <template #prefix>
                 <el-icon class="el-input__icon"><search /></el-icon>
             </template>
         </el-input>
         <template v-if="keyword">
-            <div class="lt-search-title">菜单1</div>
-            <div class="lt-content">
-                <div class="lt-content-item flex items-center h-56 pl-12 cursor-pointer" v-for="item in 10">
-                    <svg-icon name="home"></svg-icon>
-                    <span class="ml-8 mr-8">首页</span>
+            <template v-if="menuList.length">
+                <div class="lt-search-title">菜单</div>
+                <div class="lt-content">
+                    <div
+                        class="lt-content-item flex items-center h-56 pl-12 cursor-pointer"
+                        :class="{'lt-content-item-selected': menuIndex === index}"
+                        @click="clickMenuItem(index)"
+                        @mouseover="menuIndex = index"
+                        v-for="(item,index) in menuList"
+                        :key="item.path">
+                        <svg-icon name="menu"></svg-icon>
+                        <span class="ml-8 mr-8">{{item.title}}</span>
+                    </div>
                 </div>
-            </div>
+            </template>
+            <div v-else class="h-200 flex-center">没有相关搜索结果</div>
         </template>
         <template v-else>
             <template v-if="historyList.length">
                 <div class="lt-search-title">搜索历史</div>
                 <div class="lt-content">
-                    <div class="lt-content-item flex items-center h-56 pl-12 cursor-pointer" v-for="item in 10">
-                        <svg-icon name="home"></svg-icon>
-                        <span class="ml-8 mr-8">首页</span>
+                    <div
+                        class="lt-content-item flex items-center h-56 pl-12 cursor-pointer"
+                        :class="{'lt-content-item-selected': menuIndex === index}"
+                        @click="clickMenuItem(index)"
+                        @mouseover="menuIndex = index"
+                        v-for="(item,index) in historyList"
+                        :key="item.path">
+                        <svg-icon name="his-menu"></svg-icon>
+                        <span class="ml-8 mr-8">{{item.title}}</span>
                     </div>
                 </div>
             </template>
@@ -65,18 +89,51 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
-import {reactive} from "vue";
+import _ from "lodash";
+import type {searchMenu} from "@/types/app";
 const appStore = useAppStore()
-const { historyList } = storeToRefs(appStore)
+const router = useRouter()
+const { searchMenuList, historyList } = storeToRefs(appStore)
 const dialog = ref(false)
 const keyword = ref('')
-const arr = reactive([])
-useRouter().getRoutes().forEach(item => {
-    const { path, meta: { title }, children } = item
-    if (path !== '/' && children.length === 0) {
-        arr.push({path,name: title})
+const menuIndex = ref(0)
+const menuList = ref<searchMenu[]>([])
+// 关闭搜索框
+const closeDialog = () => {
+   setTimeout(() => {
+       keyword.value = ''
+       menuList.value = []
+       menuIndex.value = 0
+   },100)
+}
+// 菜单搜索
+const getMenuList = _.debounce(function () {
+    menuList.value = searchMenuList.value.filter((item: searchMenu) => item.title.includes(keyword.value))
+    menuIndex.value = 0
+}, 200)
+// 选择菜单 (键盘 enter)
+const selectedMenuItem = () => {
+    if (!menuList.value.length) return
+    const menu = menuList.value[menuIndex.value]
+    dialog.value = false
+    router.push({path: menu.path})
+    appStore.setHistoryList(menu)
+}
+// 选择菜单 (鼠标点击)
+const clickMenuItem = (index: number) => {
+    const menu = menuList.value[index]
+    dialog.value = false
+    router.push({path: menu.path})
+    appStore.setHistoryList(menu)
+}
+const changeMenuIndex = (direction: string) => {
+    if (!menuList.value.length) return
+    if (direction === 'up') {
+        menuIndex.value = menuIndex.value === 0 ? menuList.value.length - 1 : menuIndex.value - 1
+    } else {
+        menuIndex.value = menuIndex.value === menuList.value.length - 1 ? 0 : menuIndex.value + 1
     }
-})
+}
 
 </script>
 
@@ -101,13 +158,18 @@ useRouter().getRoutes().forEach(item => {
         padding: 8px;
     }
     .lt-content {
-        height: 320px;
+        min-height: 200px;
+        max-height: 320px;
         overflow-y: auto;
         &-item {
             background: #fff;
             border-radius: 4px;
             box-shadow: 0 1px 3px 0 #d4d9e1;
             margin-bottom: 8px;
+            &-selected {
+                background: var(--hightlight-text-color);
+                color: #fff;
+            }
             &:last-child {
                 margin-bottom: 0;
             }

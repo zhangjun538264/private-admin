@@ -13,7 +13,6 @@
 import {useAppStore} from "@/stores/app";
 const appStore = useAppStore()
 const { historyList } = storeToRefs( useAppStore())
-console.log(historyList)
 const test = () => {
     appStore.setHistoryList(['11111'])
 }

@@ -17,32 +17,6 @@ const sideMenuItem = defineAsyncComponent(() => import('./sideMenuItem.vue'))
 const { collapse } = storeToRefs(useAppStore())
 const { menuList } = storeToRefs(useMenuStore())
 const route = useRoute()
-const menu = [
-    {
-        icon: 'home',
-        title: '首页',
-        path: '/home',
-    },
-    {
-        icon: 'home',
-        title: '系统管理',
-        path: '/system',
-        children: [
-            {
-                title: '用户管理',
-                path: '/system/user',
-            },
-            {
-                title: '角色管理',
-                path: '/system/role',
-            },
-            {
-                title: '菜单管理',
-                path: '/system/menu',
-            },
-        ]
-    },
-]
 </script>
 
 <style scoped lang='scss'>
