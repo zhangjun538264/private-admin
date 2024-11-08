@@ -17,8 +17,13 @@
             </el-header>
             <el-main class="p-0">
                 <el-scrollbar>
-
-                    <router-view></router-view>
+                    <router-view v-slot="{ Component, route }">
+                        <transition name="el-fade-in" mode="out-in">
+                            <keep-alive>
+                                <component :is="Component" :key="route.path" />
+                            </keep-alive>
+                        </transition>
+                    </router-view>
                 </el-scrollbar>
             </el-main>
         </el-container>
