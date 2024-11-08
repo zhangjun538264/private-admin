@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </template>
-            <div v-else class="h-full flex-center">没有搜索历史</div>
+            <div v-else class="h-200 flex-center">没有搜索历史</div>
         </template>
         <template #footer>
             <div class="lt-search-footer flex items-center justify-around">
@@ -65,10 +65,18 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
+import {reactive} from "vue";
 const appStore = useAppStore()
 const { historyList } = storeToRefs(appStore)
 const dialog = ref(false)
 const keyword = ref('')
+const arr = reactive([])
+useRouter().getRoutes().forEach(item => {
+    const { path, meta: { title }, children } = item
+    if (path !== '/' && children.length === 0) {
+        arr.push({path,name: title})
+    }
+})
 
 </script>
 

@@ -4,7 +4,7 @@
 * @desc:
 */
 <template>
-    <el-menu-item v-if="!menu.children" :index="menu.path">
+    <el-menu-item v-if="!menu.children.length" :index="menu.path">
         <el-icon>
             <svg-icon :name="menu.icon" size="20"></svg-icon>
         </el-icon>
