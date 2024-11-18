@@ -16,7 +16,8 @@
                 <nav-bar></nav-bar>
             </el-header>
             <el-main class="p-0">
-                <el-scrollbar>
+                <scroll-tag v-if="showTagView"></scroll-tag>
+                <el-scrollbar :style="{height: showTagView ? 'calc(100% - 60px)' : ''}">
                     <router-view v-slot="{ Component, route }">
                         <transition name="el-fade-in" mode="out-in">
                             <keep-alive>
@@ -33,15 +34,15 @@
 
 <script setup lang="ts" name="layout">
 import {useAppStore} from "@/stores/app";
-import { Fold,Expand,Setting } from '@element-plus/icons-vue'
 
 const logo = defineAsyncComponent(() => import('./sideBar/logo.vue'))
 const sideMenu = defineAsyncComponent(() => import('./sideBar/sideMenu.vue'))
 const navBar = defineAsyncComponent(() => import('./navBar/index.vue'))
+const scrollTag = defineAsyncComponent(() => import('./navBar/scrollTag.vue'))
 const LtDrawer = defineAsyncComponent(() => import('./drawer/index.vue'))
 
 const appStore = useAppStore()
-const { collapse,menuWidth } = storeToRefs(appStore)
+const { collapse, menuWidth, showTagView } = storeToRefs(appStore)
 
 </script>
 
@@ -62,6 +63,17 @@ const { collapse,menuWidth } = storeToRefs(appStore)
             }
         }
 
+    }
+    &:deep(.el-main) {
+        .el-scrollbar {
+            &__wrap, &__view {
+                height: 100%;
+            }
+            &__view {
+                background: #f1f4fa;
+                padding: 16px;
+            }
+        }
     }
     &:deep(.lt-custom-drawer) {
         width: 300px !important;

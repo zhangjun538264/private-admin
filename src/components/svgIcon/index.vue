@@ -4,7 +4,7 @@
 * @desc:
 */
 <template>
-    <svg aria-hidden="true" class="svg-icon" :style="`width: ${size}px;height: ${size}px`">
+    <svg aria-hidden="true" class="svg-icon" :class="`svg-icon-${name}`" :style="`width: ${size}px;height: ${size}px`">
         <use :xlink:href="symbolId" :fill="color"/>
     </svg>
 </template>
