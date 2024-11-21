@@ -4,31 +4,33 @@
 * @desc:
 */
 <template>
-    <div class="lt-home-head flex justify-between items-center">
-        <div class="lt-home-user flex items-center h-full">
-            <div class="lt-user-avatar">
-                <img src="../../assets/img/avatar.awebp" alt="">
-            </div>
-            <div class="lt-user-info h-80">
-                <div class="flex items-center">{{ getTimeOfDay() }}好，系统管理员，欢迎回来！</div>
-                <div class="flex items-center">
-                    <el-tooltip effect="dark" content="随机输出一段笑话、情话、骚话、舔狗语录" placement="bottom">
-                        <el-tag type="success">{{speech.name}}</el-tag>
-                    </el-tooltip>
-                    <el-tooltip effect="dark" placement="bottom">
-                       <div class="lt-home-speech ml-8 mr-8 text-ellipsis">{{speech.data}}</div>
-                        <template #content>
-                            <div class="w-300">{{speech.data}}</div>
-                        </template>
-                    </el-tooltip>
-                    <span class="h-full flex items-center cursor-pointer" @click="refreshSpeech">
+    <div class="lt-home">
+        <div class="lt-home-head flex justify-between items-center">
+            <div class="lt-home-user flex items-center h-full">
+                <div class="lt-user-avatar">
+                    <img src="../../assets/img/avatar.awebp" alt="">
+                </div>
+                <div class="lt-user-info h-80">
+                    <div class="flex items-center">{{ getTimeOfDay() }}好，系统管理员，欢迎回来！</div>
+                    <div class="flex items-center">
+                        <el-tooltip effect="dark" content="随机输出一段笑话、情话、骚话、舔狗语录" placement="bottom">
+                            <el-tag type="success">{{speech.name}}</el-tag>
+                        </el-tooltip>
+                        <el-tooltip effect="dark" placement="bottom">
+                            <div class="lt-home-speech ml-8 mr-8 text-ellipsis">{{speech.data}}</div>
+                            <template #content>
+                                <div class="w-300">{{speech.data}}</div>
+                            </template>
+                        </el-tooltip>
+                        <span class="h-full flex items-center cursor-pointer" @click="refreshSpeech">
                         <svg-icon :class="{'refresh': refresh}" name="refresh" size="24"></svg-icon>
                         <span class="h-full flex items-center" size="24">换一换</span>
                     </span>
+                    </div>
                 </div>
             </div>
+            <lt-weather></lt-weather>
         </div>
-        <lt-weather></lt-weather>
     </div>
 </template>
 
@@ -36,6 +38,7 @@
 import {dayjs} from "element-plus";
 import Mock from 'mockjs'
 import axios from "axios";
+import {useScrollTags} from "@/stores/scrollTag";
 const ltWeather = defineAsyncComponent(() => import('@/components/weather/index.vue'))
 
 let hour = dayjs().hour()
@@ -79,6 +82,15 @@ const refreshSpeech = () => {
         speech.value = status === 200 ? {name,data} : {name,data: '网络出小差了,获取失败,请重试!'}
     })
 }
+const scrollTag = useScrollTags()
+const text = () => {
+    const tag = {
+        path: Mock.mock('@guid'),
+        tagName: Mock.mock('@ctitle(4)'),
+        closable: true,
+    }
+    scrollTag.setTagsList(tag)
+}
 
 
 refreshSpeech()
@@ -90,13 +102,15 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="scss">
-.lt-home-head {
-    height: 150px;
-    padding: 0 0 0 16px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: var(--el-box-shadow-light);
-    .lt-home-user {
+.lt-home {
+    &-head {
+        height: 150px;
+        padding: 0 0 0 16px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: var(--el-box-shadow-light);
+    }
+    &-user {
         .lt-user-avatar {
             height: 80px;
             width: 80px;
@@ -139,4 +153,5 @@ onBeforeUnmount(() => {
         }
     }
 }
+
 </style>

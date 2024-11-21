@@ -67,10 +67,10 @@ const router = useRouter(),
             { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
         ]
     }),
-    loginForm = useTemplateRef('loginForm')
+    loginForm = ref()
 
 const login = () => {
-    loginForm.value?.validate(valid => {
+    loginForm.value.validate((valid: any) => {
         if (valid) {
             setTimeout(() => {
                 appStore.setIsLogin(true)

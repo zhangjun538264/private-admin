@@ -1,5 +1,5 @@
 import settings from '../settings'
-import type {searchMenu} from "@/types/app";
+import type {SearchMenu} from "@/types/app";
 
 export const useAppStore = defineStore('app', () => {
     // 是否登录
@@ -13,9 +13,9 @@ export const useAppStore = defineStore('app', () => {
     // 项目配置抽屉
     drawer = ref(false),
     // 可搜索菜单列表
-    searchMenuList = ref<Array<searchMenu>>([]),
+    searchMenuList = ref<Array<SearchMenu>>([]),
     // 搜索历史
-    historyList = ref<Array<searchMenu>>([]),
+    historyList = ref<Array<SearchMenu>>([]),
     // 城市编码
     locationId = ref(settings.locationId)
 
@@ -40,7 +40,7 @@ export const useAppStore = defineStore('app', () => {
         searchMenuList.value = value
     }
     // 修改菜单搜索历史
-    const setHistoryList = (val: searchMenu) => {
+    const setHistoryList = (val: SearchMenu) => {
         const index = historyList.value.findIndex(item => item.path === val.path)
         index >= 0 ? historyList.value.splice(index, 1) : historyList.value.length > 10 && historyList.value.pop()
         historyList.value.unshift(val)

@@ -1,12 +1,12 @@
-export interface routeItem {
+export interface RouteItem {
     path: string,
     name: string,
     meta: any,
     component?: any,
-    children?: routeItem[]
+    children?: RouteItem[]
 }
 
-export interface searchMenu {
+export interface SearchMenu {
     name: string,
     path: string,
     title: string,
@@ -31,4 +31,9 @@ export interface FutureWeather {
 export interface CityItem {
     value: string
     label: string
+}
+export interface TagItem {
+    tagName: string,
+    path: string,
+    closable: boolean
 }

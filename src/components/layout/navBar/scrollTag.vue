@@ -4,7 +4,7 @@
 * @desc: 历史浏览记录以及其他操作
 */
 <template>
-    <div class='lt-scroll-tag flex'>
+    <div class='lt-scroll-tag w-full h-40 flex'>
         <!-- 向左移动 -->
         <div class="lt-scroll-left" @click="pre">
             <el-icon><ArrowLeft/></el-icon>
@@ -12,10 +12,10 @@
         <div class="lt-tag-container" ref="tagsBar">
             <div class="lt-tags-roll">
                 <el-tag
-                    v-for="(tag,index) in tagList"
+                    v-for="(tag,index) in tagsList"
                     :key="tag.tagName"
-                    :class="{'lt-tag-active':activeTag === tag.tagName}"
-                    :closable="index !== 0"
+                    :class="{'lt-tag-active':currentTag === tag.tagName}"
+                    :closable="tag.closable"
                     @close="closeTag(tag,index)"
                     @click="router.push({path: tag.path})"
                 >{{ tag.tagName }}</el-tag>
@@ -45,20 +45,20 @@
 </template>
 
 <script setup lang="ts">
-import { useScrollTags } from '@/stores/scrollTag.js';
-import {ArrowLeft, ArrowRight, ArrowDown, RefreshRight,FullScreen} from '@element-plus/icons-vue'
+import { useScrollTags } from '@/stores/scrollTag';
+import {ArrowLeft, ArrowRight, ArrowDown, RefreshRight} from '@element-plus/icons-vue'
+import type { TagItem } from '@/types/app'
 
 const router = useRouter()
+const route = useRoute()
 const scrollTag = useScrollTags()
-let tagsBox = ref()
-let tagsBar = ref()
-//tag 列表
-const tagList = ref(scrollTag.tagsList)
-//当前激活tag
-const activeTag = ref(scrollTag.currentTag)
+const {tagsList,currentTag} = storeToRefs(scrollTag)
+
+const tagsBar = ref()
+
 // 关闭 tag
-const closeTag = (tag,index) => {
-    if (tag.tagName === activeTag.value) {
+const closeTag = (tag: TagItem, index: number) => {
+    if (tag.tagName === currentTag.value) {
         scrollTag.deleteTag(index)
         router.go(-1)
     } else {
@@ -76,20 +76,21 @@ const pre = () => {
     tagsBar.value.children[0].style.transform = `translateX(0px)`
 }
 //移动tag
-const translateX = (num) => {
+const translateX = (num: number) => {
     const moveX = num < 0 ? 0 : num;
     tagsBar.value.children[0].style.transform = `translateX(-${moveX}px)`
 }
+
 // 监听激活 tag
 watch(() => scrollTag.currentTag, val => {
-    // // 高亮 tag
-    activeTag.value = val
+    // 高亮 tag
+    currentTag.value = val
     //切换或新增 tag 时移动
     let boxWidth = tagsBar.value.offsetWidth
     let tag = tagsBar.value
     let tagsBarWidth = 0
-    for (let index = 0; index < tagList.value.length; index++) {
-        if (tagList.value[index].tagName === val) {
+    for (let index = 0; index < tagsList.value.length; index++) {
+        if (tagsList.value[index].tagName === val) {
             nextTick(() => {
                 let a = tag.children[0].children
                 for (let i = 0;i <= index; i++) {
@@ -108,14 +109,17 @@ watch(() => scrollTag.currentTag, val => {
         translateX(tagsBarWidth + 10 - boxWidth)
     })
 })
+
+// 路由变化,更新 tagsList
+watch(route, val => {
+    // 浏览器刷新/后退 菜单高亮区域
+    scrollTag.setTagsList({tagName: (val.meta.title) as string, path: val.path, closable: true})
+}, {immediate: true})
 </script>
 
 <style scoped lang='scss'>
 .lt-scroll-tag {
-    width: 100%;
-    height: 40px;
     background: #fff;
-
     > div {
         height: 100%;
         border-right: 1px solid #ededed;
@@ -145,7 +149,7 @@ watch(() => scrollTag.currentTag, val => {
                 flex-wrap: nowrap;
                 transition: transform ease-in-out 0.5s;
             }
-            &::v-deep(.lt-tags-roll) {
+            &:deep(.lt-tags-roll) {
                 .el-tag {
                     height: 30px;
                     cursor: pointer;

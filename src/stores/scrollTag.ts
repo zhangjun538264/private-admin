@@ -1,35 +1,39 @@
-import {defineStore} from 'pinia'
-
+import type { TagItem } from '@/types/app'
 //打开页面的历史记录
 export const useScrollTags = defineStore('scrollTags', () => {
-    const tagsList = reactive([
+    const tagsList = ref<TagItem[]>([
             {
-                tagName: '首页',
                 path: '/home',
-                closable: false
-            },
+                tagName: '首页',
+                closable: false,
+            }
         ]),
         currentTag = ref('首页')
-
     //路由变化更新 tab 标签栏
-    const setTagList = (val: any) => {
-        let exist = tagsList.some(item => item.tagName === val.tagName)
+    const setTagsList = (val: TagItem) => {
+        let exist = tagsList.value.some(item => item.tagName === val.tagName)
         if (exist) {
             currentTag.value = val.tagName
         } else {
-            tagsList.push({...val, closable: true})
+            tagsList.value.push({...val, closable: val.path !== '/home'})
             currentTag.value = val.tagName
-            console.log(currentTag.value);
         }
     }
     //删除单个 tab
     const deleteTag = (index: number) => {
-        tagsList.splice(index, 1)
+        tagsList.value.splice(index, 1)
     }
+
+
     return {
         tagsList,
         currentTag,
-        setTagList,
+        setTagsList,
         deleteTag
+    }
+},{
+    persist: {
+        storage: sessionStorage,
+        pick: ['currentTag'],
     }
 })

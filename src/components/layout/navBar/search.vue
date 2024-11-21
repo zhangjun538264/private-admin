@@ -90,14 +90,14 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
 import _ from "lodash";
-import type {searchMenu} from "@/types/app";
+import type {SearchMenu} from "@/types/app";
 const appStore = useAppStore()
 const router = useRouter()
 const { searchMenuList, historyList } = storeToRefs(appStore)
 const dialog = ref(false)
 const keyword = ref('')
 const menuIndex = ref(0)
-const menuList = ref<searchMenu[]>([])
+const menuList = ref<SearchMenu[]>([])
 // 关闭搜索框
 const closeDialog = () => {
    setTimeout(() => {
