@@ -17,3 +17,14 @@
         width: 300px;
     }
 }
+// 自定义提示框主题
+.lt-card-tooltip {
+    max-width: 250px;
+    &.is-customized {
+        background: linear-gradient(90deg, rgb(159, 229, 151), rgb(204, 229, 129));
+        .el-popper__arrow::before {
+            background: linear-gradient(45deg, #b2e68d, #bce689);
+        }
+    }
+}
+
