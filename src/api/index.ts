@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ElMessage } from 'element-plus'
 
-const handleNetworkError = (errStatus) => {
+const handleNetworkError = (errStatus: number) => {
     let errMessage = ''
     if (errStatus) {
         switch (errStatus) {
@@ -54,7 +54,6 @@ const http = axios.create({
     baseURL: 'http://rap2api.taobao.org/app/mock/321586/',
     timeout: 60000,
     withCredentials: true,
-    backAll: false,
     headers: {}
 });
 
@@ -63,14 +62,13 @@ http.interceptors.request.use( config => {
     // if (store.state.token !== '') {
     //     config.headers.common['Authorized'] = store.state.token
     // }
-    return config;
+    return {...config, backAll: false};
 }, error => {
     return Promise.reject(error)
 })
 
 //响应拦截器
-http.interceptors.response.use( response => {
-    console.log("=>(index.ts:72) response", response);
+http.interceptors.response.use( (response):any => {
     let { data, config: {backAll}, headers, request, status, statusText} = response;
     if (status === 200) {
         if (Number(data.code) === 200) {
@@ -78,7 +76,7 @@ http.interceptors.response.use( response => {
         }
     }
 }, error => {
-    handleNetworkError(status)
+    handleNetworkError(Number(status))
     return Promise.reject(error);
 })
 

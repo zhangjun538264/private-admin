@@ -2,26 +2,32 @@ import settings from '../settings'
 import type {SearchMenu} from "@/types/app";
 
 export const useAppStore = defineStore('app', () => {
-    // 是否登录
-    const isLogin = ref(false)
-    // 侧边栏伸缩
-    const collapse = ref(settings.collapse),
-    // 侧边栏宽度
-    menuWidth = ref(settings.menuWidth),
-    // tags-view 是否显示
-    showTagView = ref(settings.showTagView),
-    // 项目配置抽屉
-    drawer = ref(false),
-    // 可搜索菜单列表
-    searchMenuList = ref<Array<SearchMenu>>([]),
-    // 搜索历史
-    historyList = ref<Array<SearchMenu>>([]),
-    // 城市编码
-    locationId = ref(settings.locationId)
+        // 是否登录
+    const isLogin = ref(false),
+        // 用户信息
+        user = ref({}),
+        // 侧边栏伸缩
+        collapse = ref(settings.collapse),
+        // 侧边栏宽度
+        menuWidth = ref(settings.menuWidth),
+        // tags-view 是否显示
+        showTagView = ref(settings.showTagView),
+        // 项目配置抽屉
+        drawer = ref(false),
+        // 可搜索菜单列表
+        searchMenuList = ref<Array<SearchMenu>>([]),
+        // 搜索历史
+        historyList = ref<Array<SearchMenu>>([]),
+        // 城市编码
+        locationId = ref(settings.locationId)
 
     // 修改登录状态
     const setIsLogin = (val: boolean) => {
         isLogin.value = val
+    }
+    // 修改登录状态
+    const setUserInfo = (val: any) => {
+        user.value = val
     }
     // 修改侧边栏状态
     const setCollapse = () => {
@@ -36,7 +42,7 @@ export const useAppStore = defineStore('app', () => {
         drawer.value = !drawer.value
     }
     // 设置可搜索菜单列表
-    const setSearchMenuList = (value:any) => {
+    const setSearchMenuList = (value: any) => {
         searchMenuList.value = value
     }
     // 修改菜单搜索历史
@@ -45,11 +51,13 @@ export const useAppStore = defineStore('app', () => {
         index >= 0 ? historyList.value.splice(index, 1) : historyList.value.length > 10 && historyList.value.pop()
         historyList.value.unshift(val)
     }
+    // 修改城市編碼
     const setLocationId = (val: string) => {
         locationId.value = val
     }
     return {
         isLogin,
+        user,
         collapse,
         menuWidth,
         showTagView,
@@ -58,6 +66,7 @@ export const useAppStore = defineStore('app', () => {
         historyList,
         locationId,
         setIsLogin,
+        setUserInfo,
         setCollapse,
         setTagView,
         setDrawer,
@@ -65,9 +74,9 @@ export const useAppStore = defineStore('app', () => {
         setHistoryList,
         setLocationId
     }
-},{
+}, {
     persist: {
         storage: sessionStorage,
-        pick: ['isLogin', 'historyList', 'locationId'],
+        pick: ['isLogin', 'user', 'historyList', 'locationId'],
     }
 })

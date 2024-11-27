@@ -10,12 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import { getList } from '@/api/api'
 const initMap = () => {
-    getList({pageSize: 1,pageNum: 10}).then(res => {
-        console.log("=>(index.vue:16) res", res);
 
-    })
+
 }
 
 </script>

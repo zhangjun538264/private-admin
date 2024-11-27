@@ -32,8 +32,15 @@ export interface CityItem {
     value: string
     label: string
 }
+
 export interface TagItem {
     tagName: string,
     path: string,
     closable: boolean
+}
+
+export interface ResponseData {
+    code: number
+    msg: string,
+    data: any
 }

@@ -29,7 +29,7 @@
                </div>
             </el-form-item>
             <el-form-item>
-                <el-button class="w-full" type="primary" size="large" @click="login">登 录</el-button>
+                <el-button class="w-full" type="primary" size="large" @click="sign">登 录</el-button>
             </el-form-item>
             <div class="lt-form-divider flex items-center">
                 <div class="lt-form-divider-line"></div>
@@ -49,12 +49,14 @@
 <script setup lang="ts">
 import { User, Lock } from "@element-plus/icons-vue";
 import { useAppStore } from "@/stores/app";
+import { login } from '@/api/api'
+import Cookie from 'js-cookie'
 
 const router = useRouter(),
     appStore = useAppStore(),
     form = reactive({
-        username: '',
-        password: '',
+        username: 'admin',
+        password: 'admin123456',
         isSave: false
     }),
     rule = reactive({
@@ -69,13 +71,18 @@ const router = useRouter(),
     }),
     loginForm = ref()
 
-const login = () => {
+const sign = () => {
     loginForm.value.validate((valid: any) => {
         if (valid) {
-            setTimeout(() => {
-                appStore.setIsLogin(true)
-                router.push({path: '/home'})
-            },1000)
+            login(form).then(res => {
+                const { code,data:{token,userInfo},msg } = res
+                if(code === 200) {
+                    Cookie.set('token',token)
+                    appStore.setIsLogin(true)
+                    appStore.setUserInfo(userInfo)
+                    router.push({path: '/home'})
+                }
+            })
         } else {
             return false;
         }
