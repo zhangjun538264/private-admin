@@ -123,7 +123,7 @@ const refreshSpeech = () => {
 
 //导航
 const clickMenuItem = (id: string) => {
-    document.querySelector(`#${id}`).scrollIntoView({
+    (document.querySelector(`#${id}`) as HTMLElement).scrollIntoView({
         behavior: "smooth", // 平滑过渡
         block: "start" // 上边框与视窗顶部平齐
     });

@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 export default [
     {
         id: Mock.mock('@guid'),
-        icon: 'lt-shouye',
+        icon: 'home',
         menuName: '前端框架',
         cardList: [
             {
@@ -35,6 +35,12 @@ export default [
                 synopsis: 'Svelte 是一种构建用户界面的全新方法。传统框架（如 React 和 Vue）在浏览器中完成大部分工作，而 Svelte 将这些工作转移到构建应用程序时发生的编译步骤。Svelte 没有使用虚拟 DOM diffing 之类的技术，而是编写了在应用程序状态发生变化时以手术方式更新 DOM 的代码。',
                 url: 'https://svelte.dev/'
             },
+            {
+                icon: '/src/assets/img/home/uni-app.svg',
+                cardName: 'uni-app',
+                synopsis: 'uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信/支付宝/百度/头条/飞书/QQ/快手/钉钉/淘宝）、快应用等多个平台。',
+                url: 'https://uniapp.dcloud.net.cn'
+            },
         ]
     },
     {
@@ -59,7 +65,7 @@ export default [
                 cardName: 'Redux',
                 synopsis: 'Redux 是 JavaScript 应用程序的可预测状态容器。它可以帮助您编写行为一致、在不同环境（客户端、服务器和本机）中运行并且易于测试的应用程序。最重要的是，它提供了出色的开发人员体验。',
                 url: 'https://redux.js.org/'
-            },
+            }
         ]
     },
     {
@@ -77,7 +83,7 @@ export default [
                 icon: '/src/assets/img/home/yarn.svg',
                 cardName: 'Yarn',
                 synopsis: 'Yarn 是一个包管理器，兼任项目经理。无论您是从事一次性项目还是大型 monorepos，无论是业余爱好者还是企业用户，我们都能满足您的需求。',
-                url: 'https://yarnpkg.com/'
+                url: 'https://yarn.nodejs.cn/'
             },
             {
                 icon: '/src/assets/img/home/pnpm.svg',
@@ -103,6 +109,12 @@ export default [
                 cardName: 'Vite',
                 synopsis: 'Vite 下一代的前端工具链,为开发提供极速响应。使用原生 ESM 文件，无需打包! 无论应用程序大小如何，都始终极快的模块热替换（HMR）。对 TypeScript、JSX、CSS 等支持开箱即用。',
                 url: 'https://cn.vitejs.dev/'
+            },
+            {
+                icon: '/src/assets/img/home/rollup.svg',
+                cardName: 'Rollup',
+                synopsis: 'rollup.js 是 JavaScript 模块打包器，将多个小块代码编译成更大更复杂的库或应用',
+                url: 'https://rollup.nodejs.cn'
             },
         ]
     },
@@ -212,7 +224,7 @@ export default [
                 icon: '/src/assets/img/home/eleme.svg',
                 cardName: 'Element Plus',
                 synopsis: 'Element Plus 基于 Vue 3，面向设计师和开发者的组件库',
-                url: 'https://element-plus.gitee.io/zh-CN/'
+                url: 'https://element-plus.org/zh-CN/#/zh-CN'
             },
             {
                 icon: '/src/assets/img/home/iview.svg',
@@ -298,6 +310,12 @@ export default [
                 cardName: 'animista',
                 synopsis: 'Animista 是一个 CSS 动画库，您可以在其中播放一系列现成的 CSS 动画并仅下载您将使用的动画。',
                 url: 'https://animista.net/'
+            },
+            {
+                icon: '/src/assets/img/home/unocss.svg',
+                cardName: 'UnoCss',
+                synopsis: 'UnoCss 即时按需原子 CSS 引擎，可定制 ·强大 ·快速 ·快乐',
+                url: 'https://unocss.dev'
             },
         ]
     },
