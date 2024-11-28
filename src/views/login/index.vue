@@ -77,7 +77,7 @@ const sign = () => {
             login(form).then(res => {
                 const { code,data:{token,userInfo},msg } = res
                 if(code === 200) {
-                    Cookie.set('token',token)
+                    Cookie.set('token',token,{sameSite: 'none', secure: true})
                     appStore.setIsLogin(true)
                     appStore.setUserInfo(userInfo)
                     router.push({path: '/home'})

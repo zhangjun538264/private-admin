@@ -11,22 +11,8 @@
                     <img src="../../assets/img/avatar.awebp" alt="">
                 </div>
                 <div class="lt-user-info h-80">
-                    <div class="flex items-center">{{ getTimeOfDay() }}好，系统管理员，欢迎回来！</div>
-                    <div class="flex items-center">
-                        <el-tooltip effect="dark" content="随机输出一段笑话、情话、骚话、舔狗语录" placement="bottom">
-                            <el-tag type="success">{{speech.name}}</el-tag>
-                        </el-tooltip>
-                        <el-tooltip effect="dark" placement="bottom">
-                            <div class="lt-home-speech ml-8 mr-8 text-ellipsis">{{speech.data}}</div>
-                            <template #content>
-                                <div class="w-300">{{speech.data}}</div>
-                            </template>
-                        </el-tooltip>
-                        <span class="h-full flex items-center cursor-pointer" @click="refreshSpeech">
-                        <svg-icon :class="{'refresh': refresh}" name="refresh" size="24"></svg-icon>
-                        <span class="h-full flex items-center" size="24">换一换</span>
-                    </span>
-                    </div>
+                    <div class="flex items-center">{{ getTimeOfDay() }}好，{{user.name}}，欢迎回来！</div>
+                    <div class="flex items-center"></div>
                 </div>
             </div>
             <lt-weather></lt-weather>
@@ -72,28 +58,22 @@
 </template>
 
 <script setup lang="ts">
-import {dayjs} from "element-plus";
-import Mock from 'mockjs'
-import axios from "axios";
+import { useAppStore } from "@/stores/app";
+import { dayjs } from "element-plus";
 import { importImg } from '@/utils/common'
-const ltWeather = defineAsyncComponent(() => import('@/components/weather/index.vue')),
-    cardBox = defineAsyncComponent(() => import('@/components/cardBox/index.vue'))
 import collectList from '@/assets/js/collect';
 import SvgIcon from "@/components/svgIcon/index.vue";
 
+const ltWeather = defineAsyncComponent(() => import('@/components/weather/index.vue')),
+    cardBox = defineAsyncComponent(() => import('@/components/cardBox/index.vue'))
+
 let hour = dayjs().hour()
-const timer = setInterval(() => hour = dayjs().hour(),3600000),
-    apiType = [
-        { name: '每日笑话', api: 'joke'},
-        { name: '每日情话', api: 'love'},
-        { name: '每日骚话', api: 'sexy'},
-        { name: '舔狗日记', api: 'dog'},
-    ],
-    refresh = ref(false),
-    speech = ref({
-        name: '',
-        data: '',
-    })
+
+const appStore = useAppStore(),
+    timer = setInterval(() => hour = dayjs().hour(),3600000)
+
+const { user } = appStore
+
 const getTimeOfDay = (): string => {
     let str = ''
     if (hour >= 0 && hour < 6) {
@@ -110,17 +90,6 @@ const getTimeOfDay = (): string => {
     return str
 }
 
-const refreshSpeech = () => {
-    refresh.value = true
-    const i = Mock.mock('@integer(0, 3)')
-    const { name, api } = apiType[i]
-    axios.get(`https://api.vvhan.com/api/text/${api}`).then(res => {
-        refresh.value = false
-        const { status,data } = res
-        speech.value = status === 200 ? {name,data} : {name,data: '网络出小差了,获取失败,请重试!'}
-    })
-}
-
 //导航
 const clickMenuItem = (id: string) => {
     (document.querySelector(`#${id}`) as HTMLElement).scrollIntoView({
@@ -132,9 +101,6 @@ const clickMenuItem = (id: string) => {
 const proceedUrl = (url: string) => {
     window.open(url,'_blank')
 }
-
-
-refreshSpeech()
 
 onBeforeUnmount(() => {
     clearInterval(timer)
@@ -180,16 +146,6 @@ onBeforeUnmount(() => {
                 &:last-child {
                     font-size: 14px;
                     color: var(--sub-text-color);
-                    .lt-home-speech {
-                        min-width: 100px;
-                        max-width: 500px;
-                    }
-                    .svg-icon-refresh {
-                        transition: transform 0.5s ease;
-                        &.refresh {
-                            transform: rotate(360deg);
-                        }
-                    }
                 }
             }
         }

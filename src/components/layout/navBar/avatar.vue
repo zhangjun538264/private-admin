@@ -21,8 +21,10 @@
 <script setup lang="ts">
 import { useAppStore } from "@/stores/app";
 import { ElMessageBox } from 'element-plus'
+import Cookie from "js-cookie";
 const appStore = useAppStore();
 const router = useRouter();
+const { user } = appStore
 
 const commandMenu = (command: number) => {
     switch (command) {
@@ -37,6 +39,8 @@ const commandMenu = (command: number) => {
                 }
             ).then(() => {
                 appStore.setIsLogin(false)
+                appStore.setUserInfo({})
+                Cookie.remove('token')
                 router.replace({path: '/login'})
             })
             break;

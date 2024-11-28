@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.13",
     "@vueuse/core": "^11.1.0",
     "animate.css": "^4.1.1",
     "axios": "^1.7.7",

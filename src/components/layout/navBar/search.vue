@@ -108,7 +108,7 @@ const closeDialog = () => {
 }
 // 菜单搜索
 const getMenuList = _.debounce(function () {
-    menuList.value = searchMenuList.value.filter((item: searchMenu) => item.title.includes(keyword.value))
+    menuList.value = searchMenuList.value.filter((item: SearchMenu) => item.title.includes(keyword.value))
     menuIndex.value = 0
 }, 200)
 // 选择菜单 (键盘 enter)

@@ -1,11 +1,14 @@
 import settings from '../settings'
-import type {SearchMenu} from "@/types/app";
+import type {SearchMenu, User} from "@/types/app";
 
 export const useAppStore = defineStore('app', () => {
         // 是否登录
     const isLogin = ref(false),
         // 用户信息
-        user = ref({}),
+        user = ref<User>({
+            id: '',
+            name: ''
+        }),
         // 侧边栏伸缩
         collapse = ref(settings.collapse),
         // 侧边栏宽度

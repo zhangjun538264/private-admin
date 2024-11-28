@@ -1,6 +1,6 @@
 //
 const modules: Record<string, any> = import.meta.glob("@/assets/img/**/*.{png,svg,jpg,jpeg,gif}", { eager: true });
-export const importImg = (url: string): string => {
+export const importImg = (url: string): string | undefined => {
     if (modules[url]) {
         return modules[url].default;
     } else {

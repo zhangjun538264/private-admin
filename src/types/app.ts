@@ -44,3 +44,9 @@ export interface ResponseData {
     msg: string,
     data: any
 }
+
+export interface User {
+    name: string;
+    id: string;
+    [propName: string]: string
+}

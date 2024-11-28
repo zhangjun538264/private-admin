@@ -18,13 +18,14 @@ const pathSrc = resolve(__dirname, "src");
 
 // https://vitejs.dev/config/
 export default defineConfig({
+    assetsInclude: ['**/*.awebp'],
     plugins: [
         vue(),
         VueDevTools(),
         vueSetupExtend(),
         UnoCss(),
         autoImport({
-            imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
+            imports: ['vue', 'vue-router', 'pinia', '@vueuse/core',],
             dts: './src/types/auto-import.d.ts',
             dirs: ['./src/utils']
         }),
