@@ -1,4 +1,3 @@
-import {AxiosRequestConfig} from 'axios'
 import {ResponseData} from './app.ts'
 
 declare module 'axios' {
