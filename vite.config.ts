@@ -12,21 +12,22 @@ import autoImport from 'unplugin-auto-import/dist/vite.js'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 // 引入UnoCss
 import UnoCss from 'unocss/vite'
-// 引入 Mock-Serve
-import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
+
+// // 引入 Mock-Serve
+// import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
 
 const pathSrc = resolve(__dirname, "src");
 
 // https://vitejs.dev/config/
 export default defineConfig(({mode}:ConfigEnv): UserConfig => {
-    const env = loadEnv(mode, process.cwd())
-    console.log("=>(vite.config.ts:23) env", env.VITE_MOCK_DEV_SERVER === 'true');
+    // const env = loadEnv(mode, process.cwd())
+    // console.log("=>(vite.config.ts:23) env", env.VITE_MOCK_DEV_SERVER === 'true');
     return {
         assetsInclude: ['**/*.awebp'],
         plugins: [
             vue(),
             VueDevTools(),
-            env.VITE_MOCK_DEV_SERVER === 'true' ? mockDevServerPlugin() : null,
+            // env.VITE_MOCK_DEV_SERVER === 'true' ? mockDevServerPlugin() : null,
             vueSetupExtend(),
             UnoCss(),
             autoImport({

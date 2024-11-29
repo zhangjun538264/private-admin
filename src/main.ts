@@ -4,7 +4,7 @@ import router from './router'
 import App from './App.vue'
 import ElementPlus from 'element-plus'
 import persistedState from 'pinia-plugin-persistedstate'
-
+import './mock'
 
 
 // 样式
