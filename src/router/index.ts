@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory, type RouteRecordRaw, type NavigationGuardNext, type RouteLocationNormalized,} from 'vue-router'
+import {createRouter, createWebHistory, createWebHashHistory, type RouteRecordRaw, type NavigationGuardNext, type RouteLocationNormalized,} from 'vue-router'
 import type {RouteItem, SearchMenu} from '@/types/app'
 import _ from 'lodash'
 import { useAppStore } from '@/stores/app'
@@ -40,7 +40,7 @@ const redirectToLogin = (to: RouteLocationNormalized, next: NavigationGuardNext)
 }
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
         {
             path: '/login',
