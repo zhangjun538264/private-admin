@@ -51,7 +51,7 @@ const handleNetworkError = (errStatus: number) => {
 }
 
 const http = axios.create({
-    baseURL: 'http://rap2api.taobao.org/app/mock/321586/',
+    baseURL: '/api',
     timeout: 60000,
     withCredentials: true,
     headers: {}

@@ -75,6 +75,7 @@ const sign = () => {
     loginForm.value.validate((valid: any) => {
         if (valid) {
             login(form).then(res => {
+                console.log("=>(index.vue:86) res", res);
                 const { code,data:{token,userInfo},msg } = res
                 if(code === 200) {
                     Cookie.set('token',token,{sameSite: 'none', secure: true})
