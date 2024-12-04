@@ -6,7 +6,6 @@ import ElementPlus from 'element-plus'
 import persistedState from 'pinia-plugin-persistedstate'
 import './mock'
 
-
 // 样式
 import 'element-plus/dist/index.css'
 import './assets/styles/index.scss'
